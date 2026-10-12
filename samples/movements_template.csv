@@ -1,0 +1,3 @@
+warehouse,sku,event_type,quantity,event_key,event_date,note
+MAIN,USB-CABLE,RECEIPT,5,import-2026-10-12-001,2026-10-12,Synthetic supplier receipt
+EAST,HEADPHONES,ADJUST_IN,2,import-2026-10-12-002,2026-10-12,Synthetic cycle count correction

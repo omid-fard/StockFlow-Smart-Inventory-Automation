@@ -1,0 +1,26 @@
+[
+  {
+    "warehouse": "MAIN",
+    "sku": "BELT-6PK",
+    "unit": "pcs",
+    "available": "30",
+    "incoming_po": "0",
+    "average_daily_sales": "2.071",
+    "reorder_point": "33.999",
+    "inventory_position": "30",
+    "suggested_order": "19",
+    "severity": "REORDER"
+  },
+  {
+    "warehouse": "MAIN",
+    "sku": "OIL-FILTER",
+    "unit": "pcs",
+    "available": "32",
+    "incoming_po": "0",
+    "average_daily_sales": "3.143",
+    "reorder_point": "33.142",
+    "inventory_position": "32",
+    "suggested_order": "24",
+    "severity": "REORDER"
+  }
+]

@@ -1,0 +1,26 @@
+[
+  {
+    "id": "auto-parts",
+    "name": "Motion Parts",
+    "sector": "Auto spare parts",
+    "created_at": "2026-10-12T16:34:10+00:00"
+  },
+  {
+    "id": "food-wholesale",
+    "name": "Harvest Foods",
+    "sector": "Food wholesale",
+    "created_at": "2026-10-12T16:34:10+00:00"
+  },
+  {
+    "id": "office-supplies",
+    "name": "PaperBridge",
+    "sector": "Office supplies",
+    "created_at": "2026-10-12T16:34:11+00:00"
+  },
+  {
+    "id": "online-retail",
+    "name": "Nova Commerce",
+    "sector": "E-commerce",
+    "created_at": "2026-10-12T16:34:10+00:00"
+  }
+]

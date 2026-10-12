@@ -1,0 +1,106 @@
+{
+  "organizations": 4,
+  "organization": "online-retail",
+  "daily_report": {
+    "organization": "online-retail",
+    "date": "2026-10-12",
+    "sales_orders": 1,
+    "quantity_sold": "10",
+    "gross_sales_cents": 23990,
+    "movements": [
+      {
+        "type": "SALE",
+        "events": 3,
+        "net_quantity": "-10"
+      },
+      {
+        "type": "TRANSFER_IN",
+        "events": 1,
+        "net_quantity": "2"
+      },
+      {
+        "type": "TRANSFER_OUT",
+        "events": 1,
+        "net_quantity": "-2"
+      }
+    ]
+  },
+  "inventory": [
+    {
+      "warehouse": "EAST",
+      "sku": "HEADPHONES",
+      "product": "Wireless Headphones",
+      "unit": "pcs",
+      "on_hand": "52",
+      "reserved": "1",
+      "available": "51",
+      "incoming_po": "0",
+      "minimum": "20"
+    },
+    {
+      "warehouse": "EAST",
+      "sku": "LAPTOP-STAND",
+      "product": "Adjustable Laptop Stand",
+      "unit": "pcs",
+      "on_hand": "30",
+      "reserved": "0",
+      "available": "30",
+      "incoming_po": "0",
+      "minimum": "15"
+    },
+    {
+      "warehouse": "EAST",
+      "sku": "USB-CABLE",
+      "product": "USB-C Charging Cable",
+      "unit": "pcs",
+      "on_hand": "73",
+      "reserved": "0",
+      "available": "73",
+      "incoming_po": "0",
+      "minimum": "30"
+    },
+    {
+      "warehouse": "MAIN",
+      "sku": "HEADPHONES",
+      "product": "Wireless Headphones",
+      "unit": "pcs",
+      "on_hand": "79",
+      "reserved": "0",
+      "available": "79",
+      "incoming_po": "0",
+      "minimum": "20"
+    },
+    {
+      "warehouse": "MAIN",
+      "sku": "LAPTOP-STAND",
+      "product": "Adjustable Laptop Stand",
+      "unit": "pcs",
+      "on_hand": "52",
+      "reserved": "0",
+      "available": "52",
+      "incoming_po": "0",
+      "minimum": "15"
+    },
+    {
+      "warehouse": "MAIN",
+      "sku": "USB-CABLE",
+      "product": "USB-C Charging Cable",
+      "unit": "pcs",
+      "on_hand": "152",
+      "reserved": "0",
+      "available": "152",
+      "incoming_po": "50",
+      "minimum": "30"
+    }
+  ],
+  "reorders": [],
+  "purchase_orders": [
+    {
+      "po_ref": "PO-online-retail-001",
+      "supplier": "Sample Supplier for Nova Commerce",
+      "expected_date": "2026-10-16",
+      "status": "ORDERED",
+      "warehouse": "MAIN"
+    }
+  ]
+}

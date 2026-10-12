@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>StockFlow | Inventory Intelligence</title>
+<style>
+:root{color-scheme:dark;--bg:#0b1020;--surface:#151d30;--muted:#9baac4;--text:#f4f7ff;--line:#2b3650;--lime:#61deb5;--orange:#ffb76a;--blue:#84b4ff}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at top right,#172b44 0,var(--bg) 45%);font-family:Inter,ui-sans-serif,system-ui,Arial;color:var(--text)}main{max-width:1220px;margin:auto;padding:30px 22px 80px}
+header{display:flex;justify-content:space-between;align-items:center;gap:20px;margin-bottom:36px;flex-wrap:wrap}.brand{display:flex;align-items:center;gap:14px;font-weight:780;font-size:24px;letter-spacing:-.6px}.logo{background:var(--lime);color:#091421;padding:9px 12px;border-radius:12px;font-size:19px}.meta{color:var(--muted);font-size:13px}.chip{font-size:12px;color:var(--lime);border:1px solid #2b806c;padding:7px 11px;border-radius:20px}
+.hero{display:flex;justify-content:space-between;align-items:flex-end;gap:20px;margin-bottom:26px;flex-wrap:wrap}h1{font-size:clamp(29px,5vw,42px);letter-spacing:-1.6px;margin:0 0 8px}p{color:var(--muted);margin:0;line-height:1.65}select{border:1px solid var(--line);padding:12px 16px;background:var(--surface);color:var(--text);border-radius:11px;min-width:240px;font-size:14px}
+.cards{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:15px;margin:24px 0}.card,.panel{background:linear-gradient(160deg,#19243a,#121a2b);border:1px solid var(--line);border-radius:17px;padding:19px}.card .cap{color:var(--muted);font-size:13px}.card .big{font-size:33px;font-weight:750;margin-top:9px;letter-spacing:-1px}.small{font-size:12px;color:var(--muted);margin-top:8px}.accent{color:var(--lime)}.warn{color:var(--orange)}.grid{display:grid;grid-template-columns:1.25fr 1fr;gap:18px}.panel h2{font-size:17px;margin:0 0 18px;letter-spacing:-.2px}
+.barbox{display:flex;align-items:end;gap:7px;height:190px;border-bottom:1px solid var(--line);padding:10px 0 0}.slot{height:100%;display:flex;align-items:end;flex:1;position:relative;cursor:default}.bar{width:100%;background:linear-gradient(180deg,#68e9ca,#247f82);min-height:2px;border-radius:5px 5px 0 0}.slot:hover .bar{filter:brightness(1.25)}.slot:hover::after{content:attr(data-tip);position:absolute;bottom:calc(var(--bh) + 10px);left:50%;transform:translateX(-50%);white-space:nowrap;background:#2c3e58;padding:7px;border-radius:6px;font-size:11px;z-index:2}
+.legend{display:flex;justify-content:space-between;color:var(--muted);font-size:11px;margin-top:10px}.scroll{overflow:auto;max-width:100%}table{border-collapse:collapse;width:100%;text-align:left;min-width:550px}th{color:var(--muted);font-size:11px;text-transform:uppercase;letter-spacing:1px;font-weight:600}td,th{padding:13px 9px;border-bottom:1px solid var(--line)}td{font-size:13px}tbody tr:hover{background:#202d43}.pill{display:inline-block;border-radius:50px;padding:4px 8px;background:#483421;color:#ffcd81;font-size:12px}.empty{color:var(--muted);padding:25px 0;font-size:14px}.footer{margin-top:20px;color:var(--muted);font-size:12px;line-height:1.6}
+
+/* Operational controls in the local MVP; native widgets keep the interface keyboard friendly. */
+.operations{margin-top:18px}.operations .intro{display:flex;justify-content:space-between;gap:18px;align-items:center;flex-wrap:wrap;margin-bottom:17px}.tag{background:#1c3541;color:#7fe2c8;border:1px solid #316257;border-radius:999px;padding:7px 10px;font-size:11px;font-weight:700}.forms{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+form{display:grid;gap:12px}form h3{margin:0 0 2px;font-size:15px}label{display:grid;gap:6px;color:var(--muted);font-size:12px;font-weight:600}input,form select{width:100%;min-width:0;padding:11px 12px;background:#0c1729;color:var(--text);border:1px solid #374762;border-radius:9px;font:inherit;font-size:14px}input:focus-visible,select:focus-visible,button:focus-visible{outline:2px solid #66e4c3;outline-offset:2px}.two{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+button{border:0;border-radius:10px;padding:13px 15px;background:#61deb5;color:#10202a;cursor:pointer;font:inherit;font-size:14px;font-weight:750}button:hover{filter:brightness(1.08)}button:disabled{opacity:.55;cursor:wait}.help{color:var(--muted);font-size:12px;line-height:1.55}.notice{padding:11px;border-radius:9px;font-size:12px;line-height:1.5;border:1px solid #48536d;background:#202c40}.notice.success{background:#14352e;border-color:#2e8f73;color:#a6f6da}.notice.error{background:#3b2228;border-color:#9d5264;color:#ffc5d1}.ops-divider{width:1px;background:var(--line)}.transaction-panel{margin-top:18px}.sign-plus{color:var(--lime)}.sign-minus{color:var(--orange)}
+@media(max-width:900px){.forms{grid-template-columns:1fr}}
+@media(max-width:900px){.cards{grid-template-columns:repeat(2,1fr)}.grid{grid-template-columns:1fr}}@media(max-width:500px){main{padding:16px 12px 45px}.cards{gap:9px}.card{padding:12px}.card .big{font-size:27px}.panel{padding:12px}}
+</style></head><body><main>
+<header><div class="brand"><span class="logo">SF</span><div>StockFlow<div class="meta">Universal inventory intelligence</div></div></div><span class="chip">● LOCAL DEMO • SYNTHETIC DATA</span></header>
+<div class="hero"><div><h1>Inventory at a glance.</h1><p>Stock movements, daily sales and purchase recommendations across industries.</p></div><select id="org" aria-label="Select organization"></select></div>
+<div class="cards"><div class="card"><div class="cap">Available quantity</div><div id="available" class="big accent">—</div><div class="small">Across warehouses (mixed units shown separately below)</div></div><div class="card"><div class="cap">Sales orders today</div><div id="orders" class="big">—</div><div class="small">Posted orders</div></div><div class="card"><div class="cap">Reorder alerts</div><div id="alerts" class="big warn">—</div><div class="small">Based on demand and safety stock</div></div><div class="card"><div class="cap">Pending purchase orders</div><div id="pending" class="big">—</div><div class="small">Ordered or partially received</div></div></div>
+<div class="grid"><section class="panel"><h2>Sales trend · 14 days</h2><div id="chart" class="barbox"></div><div class="legend"><span>14 days ago</span><span>Today</span></div><div class="small">Gross sales for demonstration purposes · no currency conversion</div></section><section class="panel"><h2>Purchase recommendations</h2><div class="scroll"><table><thead><tr><th>SKU / Warehouse</th><th>Available</th><th>Suggested</th></tr></thead><tbody id="reorders"></tbody></table></div></section></div>
+<section class="panel" style="margin-top:18px"><h2>Inventory ledger snapshot</h2><div class="scroll"><table><thead><tr><th>Warehouse</th><th>Product</th><th>SKU</th><th>On hand</th><th>Reserved</th><th>Available</th><th>Incoming PO</th><th>Unit</th></tr></thead><tbody id="inventory"></tbody></table></div></section>
+
+<section class="panel operations" id="operations"><div class="intro"><div><h2 style="margin:0 0 5px">Register stock movements</h2><p>Post an inventory change or sale; balances and alerts refresh automatically.</p></div><span class="tag">LIVE LOCAL DATA</span></div>
+<div class="forms"><form id="movement-form"><h3>Stock in / Stock out</h3>
+<label>Movement reason<select name="event_type" required><option value="RECEIPT">Stock received (unlinked to purchase order)</option><option value="RETURN">Customer return</option><option value="ADJUST_IN">Manual increase / count correction</option><option value="DAMAGE">Damaged or scrapped stock</option><option value="ADJUST_OUT">Manual decrease / count correction</option></select></label>
+<label>Warehouse &amp; product<select name="item" class="stock-item" required></select></label>
+<div class="two"><label>Quantity<input name="quantity" type="number" min="0.001" step="any" required placeholder="e.g. 5" inputmode="decimal"/></label><label>Transaction date<input name="event_date" type="date" required/></label></div>
+<label>Reason / notes<input name="note" type="text" maxlength="160" placeholder="e.g. Supplier delivery or stock count"/></label>
+<p class="help">Each change is written to the inventory ledger with a unique reference. For linked supplier deliveries, use the purchase receipt API instead.</p>
+<button type="submit">Save inventory movement</button><div id="movement-feedback" role="status" aria-live="polite" hidden></div>
+</form>
+<form id="sale-form"><h3>Record sale &amp; decrease stock</h3>
+<label>Warehouse &amp; product<select name="item" class="stock-item" required></select></label>
+<div class="two"><label>Quantity<input name="quantity" type="number" min="0.001" step="any" required placeholder="e.g. 2" inputmode="decimal"/></label><label>Unit price (EUR)<input name="price" type="number" min="0" step="0.01" required value="19.99" inputmode="decimal"/></label></div>
+<label>Sale date<input name="sale_date" type="date" required/></label>
+<p class="help">A sale records both the order and the stock deduction. Zero or negative available stock is blocked. For this demo, prices are entered in EUR.</p>
+<button type="submit">Record sale</button><div id="sale-feedback" role="status" aria-live="polite" hidden></div>
+</form></div></section>
+<section class="panel transaction-panel"><div class="intro"><h2 style="margin:0">Recent inventory activity</h2></div><div class="scroll"><table><thead><tr><th>Date</th><th>Action</th><th>Product</th><th>Warehouse</th><th>Change</th><th>Reference</th></tr></thead><tbody id="movement-history"></tbody></table></div></section>
+<p class="footer">StockFlow MVP · local development only. Demo data are fabricated, and recommendations are illustrative. Totals are not summed across incompatible units.</p>
+</main><script>
+const $=id=>document.getElementById(id);
+const esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const uniqueRef=prefix=>prefix+'-'+Date.now()+'-'+Math.random().toString(36).slice(2,10);
+let currentItems=[];
+async function request(path,options={}){
+  const res=await fetch(path,options);let data;
+  try{data=await res.json()}catch{throw Error('Server returned an invalid response')}
+  if(!res.ok)throw Error(typeof data.detail==='string'?data.detail:'API error '+res.status);
+  return data;
+}
+const get=path=>request(path);
+const post=(path,data)=>request(path,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(data)});
+function row(cells){return '<tr>'+cells.map(c=>'<td>'+esc(c)+'</td>').join('')+'</tr>'}
+function putItems(items){
+  currentItems=items;
+  const opts=items.map(x=>'<option value="'+esc(x.warehouse+'|'+x.sku)+'">'+esc(x.warehouse+' · '+x.product+' ('+x.sku+') · '+x.available+' '+x.unit+' available')+'</option>').join('');
+  document.querySelectorAll('.stock-item').forEach(el=>el.innerHTML=opts);
+}
+function chosen(form){
+  const selection=form.elements.namedItem('item').value.split('|');
+  const item=currentItems.find(x=>x.warehouse===selection[0]&&x.sku===selection[1]);
+  if(!item)throw Error('Choose a valid warehouse and product');
+  return item;
+}
+function feedback(id,message,isError){
+  const el=$(id);el.hidden=false;el.className='notice '+(isError?'error':'success');el.textContent=message;
+}
+function validQuantity(value,unit){
+  const q=Number(value);if(!Number.isFinite(q)||q<=0)throw Error('Quantity must be greater than zero');
+  const precision=unit==='pcs'?0:3;
+  if(Math.abs(q*10**precision-Math.round(q*10**precision))>1e-6)throw Error(unit+' supports a maximum of '+precision+' decimal places');
+  return String(value);
+}
+async function render(){
+ const org=$('org').value;
+ try {
+   const [inv,rep,reorders,pos,trend,history]=await Promise.all([
+      get('/organizations/'+org+'/inventory'),
+      get('/organizations/'+org+'/daily-report'),
+      get('/organizations/'+org+'/reorder-suggestions'),
+      get('/organizations/'+org+'/purchase-orders'),
+      get('/organizations/'+org+'/sales-trend?days=14'),
+      get('/organizations/'+org+'/movements?limit=12')]);
+   $('available').textContent=inv.filter(x=>x.unit==='pcs').reduce((a,x)=>a+Number(x.available),0).toLocaleString();
+   document.querySelector('#available+.small').textContent='Available pieces (pcs) only';
+   $('orders').textContent=rep.sales_orders;
+   $('alerts').textContent=reorders.length;
+   $('pending').textContent=pos.filter(x=>x.status!=='RECEIVED').length;
+   $('inventory').innerHTML=inv.map(x=>row([x.warehouse,x.product,x.sku,x.on_hand,x.reserved,x.available,x.incoming_po,x.unit])).join('');
+   $('reorders').innerHTML=reorders.length?reorders.map(x=>row([x.sku+' / '+x.warehouse,x.available+' '+x.unit,x.suggested_order+' '+x.unit])).join(''):'<tr><td colspan="3" class="empty">No reorder alerts for the selected business.</td></tr>';
+   const max=Math.max(1,...trend.map(x=>x.gross_sales_cents));
+   $('chart').innerHTML=trend.map(x=>{const h=Math.max(1,100*x.gross_sales_cents/max);return '<div class="slot" data-tip="'+esc(x.date+' · '+(x.gross_sales_cents/100).toFixed(2))+'" style="--bh:'+h+'%"><div class="bar" style="height:'+h+'%"></div></div>'}).join('');
+   $('movement-history').innerHTML=history.length?history.map(x=>row([x.date,x.type,x.product+' ('+x.sku+')',x.warehouse,x.delta+' '+x.unit,x.reference])).join(''):'<tr><td colspan="6" class="empty">No inventory activity recorded.</td></tr>';
+   putItems(inv);
+ } catch(e){$('inventory').innerHTML='<tr><td colspan="8">'+esc(e.message)+'</td></tr>';console.error(e)}
+}
+async function submitMovement(ev){
+ ev.preventDefault();const form=ev.currentTarget,btn=form.querySelector('button[type=submit]');
+ btn.disabled=true;
+ try{
+   const item=chosen(form), qty=validQuantity(form.elements.quantity.value,item.unit);
+   const payload={org:$('org').value,warehouse:item.warehouse,sku:item.sku,
+     event_type:form.elements.event_type.value,quantity:qty,
+     event_key:form.dataset.reference||(form.dataset.reference=uniqueRef('MOVE')),
+     event_date:form.elements.event_date.value,note:form.elements.note.value.trim()};
+   const out=await post('/movements',payload);
+   feedback('movement-feedback',out.inserted?'Inventory movement saved. Dashboard refreshed.':'This movement reference was already recorded.',false);
+   delete form.dataset.reference;form.elements.quantity.value='';
+   await render();
+ }catch(e){feedback('movement-feedback',e.message,true)}finally{btn.disabled=false}
+}
+async function submitSale(ev){
+ ev.preventDefault();const form=ev.currentTarget,btn=form.querySelector('button[type=submit]');
+ btn.disabled=true;
+ try{
+   const item=chosen(form),qty=validQuantity(form.elements.quantity.value,item.unit);
+   const price=Number(form.elements.price.value);
+   if(!Number.isFinite(price)||price<0||Math.abs(price*100-Math.round(price*100))>1e-6)throw Error('Enter a valid EUR unit price (max 2 decimal places)');
+   const payload={org:$('org').value,warehouse:item.warehouse,
+     sale_ref:form.dataset.reference||(form.dataset.reference=uniqueRef('SALE')),
+     sold_date:form.elements.sale_date.value,
+     lines:[{sku:item.sku,quantity:qty,unit_price_cents:Math.round(price*100)}]};
+   const out=await post('/sales',payload);
+   feedback('sale-feedback',out.inserted?'Sale recorded and stock deducted. Dashboard refreshed.':'This sale reference was already recorded.',false);
+   delete form.dataset.reference;form.elements.quantity.value='';
+   await render();
+ }catch(e){feedback('sale-feedback',e.message,true)}finally{btn.disabled=false}
+}
+async function init(){
+ try {
+   const orgs=await get('/organizations');
+   $('org').innerHTML=orgs.map(x=>'<option value="'+esc(x.id)+'">'+esc(x.name)+' · '+esc(x.sector)+'</option>').join('');
+   document.querySelectorAll('input[type=date]').forEach(el=>el.value=new Date().toLocaleDateString('sv-SE'));
+   $('org').addEventListener('change',()=>{
+     ['movement-form','sale-form'].forEach(id=>{
+       const f=$(id); delete f.dataset.reference;
+       const message=f.querySelector('[role=status]');message.hidden=true;
+     });render();
+   });
+   $('movement-form').addEventListener('submit',submitMovement);
+   $('sale-form').addEventListener('submit',submitSale);
+   await render();
+ }catch(e){document.querySelector('.hero p').textContent='First run: py -m stockflow.cli seed';console.error(e)}
+}
+init();
+</script></body></html>

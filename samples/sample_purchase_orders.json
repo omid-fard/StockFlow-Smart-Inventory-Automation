@@ -1,0 +1,9 @@
+[
+  {
+    "po_ref": "PO-office-supplies-001",
+    "supplier": "Sample Supplier for PaperBridge",
+    "expected_date": "2026-10-16",
+    "status": "PARTIAL",
+    "warehouse": "MAIN"
+  }
+]

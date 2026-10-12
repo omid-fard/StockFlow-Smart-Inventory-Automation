@@ -1,0 +1,27 @@
+StockFlow MVP v0.1 — راهنمای خیلی سریع
+===================================
+
+1) پوشه StockFlow_MVP را باز کنید.
+2) در Terminal وارد این پوشه شوید.
+3) دستور زیر را اجرا کنید:
+   python3 -m stockflow.cli seed
+4) سپس گزارش آزمایشی را ببینید:
+   python3 -m stockflow.cli demo --org online-retail
+5) برای دیدن هشدار سفارش مجدد:
+   python3 -m stockflow.cli reorder --org auto-parts
+6) برای تست پروژه:
+   python3 -m unittest discover -s tests -v
+
+داشبورد محلی (اختیاری):
+   python3 -m pip install -r requirements-api.txt
+   python3 -m uvicorn stockflow.api:app --host 127.0.0.1 --port 8000
+
+سپس آدرس http://127.0.0.1:8000/dashboard را در مرورگر باز کنید.
+
+نکات:
+- به Docker یا n8n نیازی نیست.
+- داده‌های نمونه کاملاً ساختگی‌اند.
+- سرور API هیچ احراز هویتی ندارد؛ فقط روی localhost اجرا کنید.
+- اجرای seed روی دیتابیس موجود خطا می‌دهد تا داده‌ها به‌اشتباه دوباره اضافه نشوند.
+
+مستندات کامل‌تر: README.md و docs/GUIDE_FA.md و docs/ARCHITECTURE.md
