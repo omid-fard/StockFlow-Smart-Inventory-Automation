@@ -105,3 +105,4 @@ All companies, suppliers, SKUs, names, figures and transactions are invented. De
 5. Demand forecasts with backtesting, supplier variability, service-level targets and audit metrics.
 
 **License:** MIT. No company data or credentials are included.
+![StockFlow Dashboard](stockflow-dashboard.png)
