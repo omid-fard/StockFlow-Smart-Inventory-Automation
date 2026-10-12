@@ -1,3 +1,4 @@
+![StockFlow Dashboard](stockflow-dashboard.png)
 # StockFlow — Universal Inventory Monitoring & Reorder MVP
 
 **Practical Python + SQLite + FastAPI inventory ledger** for different industries. Synthetic organizations simulate e-commerce, food wholesale, auto parts and office supplies. This is a locally testable proof of concept, not production software.
@@ -105,4 +106,3 @@ All companies, suppliers, SKUs, names, figures and transactions are invented. De
 5. Demand forecasts with backtesting, supplier variability, service-level targets and audit metrics.
 
 **License:** MIT. No company data or credentials are included.
-![StockFlow Dashboard](stockflow-dashboard.png)
